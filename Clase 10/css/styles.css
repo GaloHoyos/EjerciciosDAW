@@ -213,6 +213,9 @@ form > div {
         align-items: flex-start;
         gap: 20px;
     }
+    .modal-content {
+        width: 50%;
+    }
 
     main > div {
         width: 50%;

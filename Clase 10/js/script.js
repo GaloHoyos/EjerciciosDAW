@@ -155,19 +155,29 @@ function submitForm(event) {
         // Enviar datos del formulario
         var formData = new FormData(form);
         var params = new URLSearchParams(formData).toString();
-        var url = `https://jsonplaceholder.typicode.com/users?${params}`;
+        var url = `https://jsonplaceholder.typicode.com/users`;
 
-        fetch(url)
-            .then(function(response) {
-                return response.json();
-            })
-            .then(function(data) {
-                showSuccessModal(data);
-                localStorage.setItem('formData', JSON.stringify(data));
-            })
-            .catch(function(error) {
-                showModal('Error en la suscripción', error.message);
-            });
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: params
+        })
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+            // Verificar estructura de los datos recibidos
+            console.log("Datos recibidos:", data);
+
+            // Mostrar datos en el modal
+            showSuccessModal(data);
+            localStorage.setItem('formData', JSON.stringify(data));
+        })
+        .catch(function(error) {
+            showModal('Error en la suscripción', error.message);
+        });
     } else {
         alert('Por favor, corrija los errores en el formulario.');
     }
